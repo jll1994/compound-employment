@@ -1,3 +1,4 @@
+<!-- 接单设置 -->
 <template>
   <div>
     <el-form label-width="100px">
@@ -179,7 +180,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="less" scoped>
 .inlineItem {
   display: flex;
   align-items: center;

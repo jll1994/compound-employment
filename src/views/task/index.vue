@@ -11,7 +11,9 @@
       </el-tab-pane>
     </el-tabs>
     <!-- 新增、编辑 -->
-    <AddOrEditTask v-if="pageType === 'addOrEdit'"></AddOrEditTask>
+    <!-- <AddOrEditTask v-if="pageType === 'addOrEdit'"></AddOrEditTask> -->
+    <OrderSetting></OrderSetting>
+    <!-- <PaySetting></PaySetting> -->
   </div>
 </template>
 
@@ -22,6 +24,8 @@ import TakeOrder from './components/takeOrder'
 import PayWaitChecked from './components/payWaitChecked'
 import PayRecord from './components/payRecord'
 import AddOrEditTask from './addOrEdit'
+import OrderSetting from './orderSetting'
+import PaySetting from './paySetting'
 export default {
   components: {
     TaskList,
@@ -30,6 +34,8 @@ export default {
     PayWaitChecked,
     PayRecord,
     AddOrEditTask,
+    OrderSetting,
+    PaySetting,
   },
   data() {
     return {
