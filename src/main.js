@@ -4,6 +4,9 @@ import 'element-ui/lib/theme-chalk/index.css'
 import App from './App.vue'
 import router from './router'
 
+import ProTable from './components/ProTable.vue'
+Vue.component('ProTable', ProTable)
+
 Vue.config.productionTip = false
 
 Vue.use(ElementUI, { size: 'medium' })

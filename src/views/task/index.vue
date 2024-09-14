@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-tabs v-if="pageType === 'list'" v-model="activeName">
+    <el-tabs v-model="activeName">
       <el-tab-pane
         :label="item.label"
         :name="item.name"
@@ -10,10 +10,6 @@
         <component :is="item.component"></component>
       </el-tab-pane>
     </el-tabs>
-    <!-- 新增、编辑 -->
-    <!-- <AddOrEditTask v-if="pageType === 'addOrEdit'"></AddOrEditTask> -->
-    <OrderSetting></OrderSetting>
-    <!-- <PaySetting></PaySetting> -->
   </div>
 </template>
 
@@ -23,9 +19,6 @@ import PendingApprove from './components/pendingApprove'
 import TakeOrder from './components/takeOrder'
 import PayWaitChecked from './components/payWaitChecked'
 import PayRecord from './components/payRecord'
-import AddOrEditTask from './addOrEdit'
-import OrderSetting from './orderSetting'
-import PaySetting from './paySetting'
 export default {
   components: {
     TaskList,
@@ -33,9 +26,6 @@ export default {
     TakeOrder,
     PayWaitChecked,
     PayRecord,
-    AddOrEditTask,
-    OrderSetting,
-    PaySetting,
   },
   data() {
     return {
@@ -67,7 +57,6 @@ export default {
           component: PayRecord,
         },
       ],
-      pageType: 'addOrEdit', // list=列表；addOrEdit=新增、编辑
     }
   },
 }

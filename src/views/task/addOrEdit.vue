@@ -1,8 +1,18 @@
-<!-- 接单设置 -->
+<!-- 新建/编辑任务 -->
 <template>
   <div>
-    <el-form label-width="100px">
+    <el-form label-width="150px">
       <el-row :gutter="48">
+        <el-col :span="12">
+          <el-form-item label="从其他任务复制：">
+            <el-select placeholder="请选择"></el-select>
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item label="选择模板：">
+            <el-select placeholder="请选择"></el-select>
+          </el-form-item>
+        </el-col>
         <el-col :span="12">
           <el-form-item label="任务名称：">
             <el-input placeholder="请输入"></el-input>
@@ -76,6 +86,19 @@
             <el-radio label="3">天</el-radio>
           </el-radio-group>
         </div>
+        <div class="inlineItem">
+          <span>免审批上限</span>
+          <div class="inlineItem margin-10">
+            <span>每人每笔</span>
+            <el-input class="margin-10"></el-input>
+            <span>元</span>
+          </div>
+          <div class="inlineItem margin-10">
+            <span>每笔</span>
+            <el-input class="margin-10"></el-input>
+            <span>元</span>
+          </div>
+        </div>
       </el-form-item>
       <el-form-item label="补贴">
         <el-table :data="tableData" style="width: 100%">
@@ -107,7 +130,7 @@
       </el-form-item>
     </el-form>
     <!-- 新增/编辑 -->
-    <el-dialog title="新增补贴" :visible.sync="visible" width="680px">
+    <el-dialog title="新增补贴" :visible.sync="subsidyVisible" width="680px">
       <el-form label-width="100px">
         <el-form-item label="补贴类型">
           <el-select></el-select>
@@ -174,7 +197,8 @@ export default {
           address: '上海市普陀区金沙江路 1517 弄',
         },
       ],
-      visible: true,
+      subsidyVisible: false, // 补贴
+      deductVisible: false, // 扣除
     }
   },
 }

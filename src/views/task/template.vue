@@ -3,6 +3,9 @@
   <div>
     <el-form inline>
       <el-form-item>
+        <el-select placeholder="选择企业"></el-select>
+      </el-form-item>
+      <el-form-item>
         <el-select placeholder="选择任务"></el-select>
       </el-form-item>
       <el-form-item>
@@ -28,20 +31,17 @@
       </el-form-item>
       <el-form-item>
         <el-button type="primary">搜索</el-button>
-        <el-button type="primary" @click="handleCreate">新建任务</el-button>
-        <el-button type="primary">批量导入</el-button>
+        <el-button type="primary">新建模板</el-button>
+        <el-button type="primary">启用</el-button>
+        <el-button type="primary">禁用</el-button>
         <el-button type="success">导出</el-button>
       </el-form-item>
     </el-form>
-    <ProTable :columns="columns" :data="tableData" style="width: 100%">
-      <template v-slot="action">
-        <a>编辑</a>
-        <a>派单</a>
-        <a>停止</a>
-        <a>取消</a>
-        <a>复制</a>
-      </template>
-    </ProTable>
+    <el-table
+      :columns="columns"
+      :data="tableData"
+      style="width: 100%"
+    ></el-table>
   </div>
 </template>
 <script>
@@ -49,40 +49,23 @@ export default {
   data() {
     return {
       columns: [
-        { prop: 'number', label: '任务编号' },
-        { prop: 'name', label: '任务名称' },
+        { prop: '', label: '模板编号' },
+        { prop: '', label: '模板名称' },
         { prop: '', label: '发放通道' },
-        { prop: '', label: '发单企业' },
-        { prop: '', label: '发单人' },
-        { prop: '', label: '任务类别' },
-        { prop: '', label: '任务描述' },
+        { prop: '', label: '创建企业' },
+        { prop: '', label: '创建人' },
+        { prop: '', label: '模板类型' },
+        { prop: '', label: '模板描述' },
         { prop: '', label: '接单次数限制' },
         { prop: '', label: '派单方法' },
         { prop: '', label: '允许抢单人员' },
         { prop: '', label: '指定人员' },
         { prop: '', label: '接单审批' },
-        { prop: '', label: '任务海报' },
-        { prop: '', label: '分享链接标题' },
-        { prop: '', label: '有效期' },
-        { prop: '', label: '浏览人数' },
-        { prop: '', label: '已接单人数' },
-        { prop: '', label: '累计核算笔数' },
-        { prop: '', label: '累计支付金额' },
         { prop: '', label: '创建时间' },
         { prop: '', label: '更新时间' },
-        { prop: '', label: '附件' },
-        { prop: 'action', label: '操作', slot: true },
       ],
-      tableData: [
-        { number: '111111', name: '任务名称111' },
-        { number: '222222', name: '任务名称222' },
-      ],
+      tableData: [],
     }
-  },
-  methods: {
-    handleCreate() {
-      this.$router.push('/addOrEditTask')
-    },
   },
 }
 </script>
