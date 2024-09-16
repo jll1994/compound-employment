@@ -5,7 +5,9 @@ import App from './App.vue'
 import router from './router'
 
 import ProTable from './components/ProTable.vue'
+import CollapsePanel from './components/CollapsePanel.vue'
 Vue.component('ProTable', ProTable)
+Vue.component('CollapsePanel', CollapsePanel)
 
 Vue.config.productionTip = false
 

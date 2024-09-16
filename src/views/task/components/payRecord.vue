@@ -28,8 +28,7 @@
         <el-button type="success">导出</el-button>
       </el-form-item>
     </el-form>
-    <ProTable :columns="columns" :data="tableData" style="width: 100%">
-    </ProTable>
+    <ProTable :columns="columns" :data="tableData"> </ProTable>
   </div>
 </template>
 <script>

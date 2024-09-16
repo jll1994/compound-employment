@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Layout from '../views/layout.vue'
-import Home from '../views/home.vue'
 
 Vue.use(VueRouter)
 
@@ -22,15 +21,30 @@ const routes = [
         component: () => import(/* webpackChunkName: "addOrEdit" */ '../views/task/addOrEdit.vue')
       },
       {
+        path: '/taskDetail',
+        name: 'taskDetail',
+        component: () => import(/* webpackChunkName: "taskDetail" */ '../views/task/detail.vue')
+      },
+      {
         path: '/taskTemplate',
         name: 'taskTemplate',
         component: () => import(/* webpackChunkName: "taskTemplate" */ '../views/task/template.vue')
       },
       {
-        path: '/chargingPile',
-        name: 'chargingPile',
-        component: () => import(/* webpackChunkName: "chargingPile" */ '../views/chargingPile/index.vue')
-      }
+        path: '/formTemplate',
+        name: 'formTemplate',
+        component: () => import(/* webpackChunkName: "formTemplate" */ '../views/chargingPile/formTemplate.vue')
+      },
+      {
+        path: '/cpTaskTemplate',
+        name: 'cpTaskTemplate',
+        component: () => import(/* webpackChunkName: "cpTaskTemplate" */ '../views/chargingPile/taskTemplate.vue')
+      },
+      {
+        path: '/addOrEditTemplate',
+        name: 'addOrEditTemplate',
+        component: () => import(/* webpackChunkName: "addOrEditTemplate" */ '../views/chargingPile/addOrEdit.vue')
+      },
     ]
   }
 ]

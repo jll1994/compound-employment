@@ -22,11 +22,7 @@
         <el-button type="success">导出</el-button>
       </el-form-item>
     </el-form>
-    <ProTable
-      :columns="columns"
-      :data="tableData"
-      style="width: 100%"
-    ></ProTable>
+    <ProTable :columns="columns" :data="tableData"></ProTable>
   </div>
 </template>
 <script>
@@ -34,7 +30,7 @@ export default {
   data() {
     return {
       columns: [
-        { prop: 'name', label: '任务名称' },
+        { prop: 'StrTaskName', label: '任务名称' },
         { prop: '', label: '接单人姓名' },
         { prop: '', label: '接单人手机号' },
         { prop: '', label: '身份证号' },
@@ -53,10 +49,7 @@ export default {
         { prop: '', label: '个人累计结算金额' },
         { prop: '', label: '个人累计支付金额' },
       ],
-      tableData: [
-        { number: '111111', name: '任务名称111' },
-        { number: '222222', name: '任务名称222' },
-      ],
+      tableData: [],
     }
   },
 }

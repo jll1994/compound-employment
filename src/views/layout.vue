@@ -1,20 +1,22 @@
 <template>
   <el-container>
     <el-aside width="200px">
-      <el-menu :default-active="activeIndex">
+      <el-menu
+        background-color="#545c64"
+        text-color="#fff"
+        active-text-color="#ffd04b"
+        :default-active="activeIndex"
+        :router="true"
+      >
         <el-submenu index="1">
           <template slot="title">任务管理</template>
-          <el-menu-item index="1-1">
-            <router-link to="/taskList">任务列表</router-link>
-          </el-menu-item>
-          <el-menu-item index="1-2">
-            <router-link to="/taskTemplate">任务模板</router-link>
-          </el-menu-item>
+          <el-menu-item index="taskList">任务列表</el-menu-item>
+          <el-menu-item index="taskTemplate">任务模板</el-menu-item>
         </el-submenu>
         <el-submenu index="2">
           <template slot="title">充电桩任务管理</template>
-          <el-menu-item index="2-1">表单模板</el-menu-item>
-          <el-menu-item index="2-2">任务模板</el-menu-item>
+          <el-menu-item index="formTemplate">表单模板</el-menu-item>
+          <el-menu-item index="cpTaskTemplate">任务模板</el-menu-item>
         </el-submenu>
       </el-menu>
     </el-aside>
@@ -28,7 +30,7 @@
 export default {
   data() {
     return {
-      activeIndex: '1',
+      activeIndex: '',
     }
   },
 }
@@ -39,11 +41,11 @@ export default {
   height: 100%;
 }
 .el-aside {
-  color: #333;
   text-align: center;
+  background-color: #545c64;
 }
-
 .el-main {
-  color: #333;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 </style>

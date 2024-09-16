@@ -40,7 +40,11 @@
         <el-button type="success">导出</el-button>
       </el-form-item>
     </el-form>
-    <ProTable :columns="columns" :data="tableData"></ProTable>
+    <ProTable
+      :columns="columns"
+      :data="tableData"
+      style="width: 100%"
+    ></ProTable>
   </div>
 </template>
 <script>
@@ -63,9 +67,15 @@ export default {
         { prop: '', label: '接单审批' },
         { prop: '', label: '创建时间' },
         { prop: '', label: '更新时间' },
+        { prop: '', label: '操作' },
       ],
       tableData: [],
     }
+  },
+  methods: {
+    handleAdd() {
+      this.$router.push('/addOrEditTemplate')
+    },
   },
 }
 </script>
