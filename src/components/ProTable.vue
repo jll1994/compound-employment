@@ -15,7 +15,11 @@
       width="50"
     >
     </el-table-column>
-    <el-table-column v-for="item in columns" :key="item.prop" v-bind="item">
+    <el-table-column
+      v-for="(item, index) in columns"
+      :key="item.prop + index"
+      v-bind="item"
+    >
       <!--使用表格插槽 -->
       <template slot-scope="scope">
         <div v-if="item.isSlot">

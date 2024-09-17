@@ -36,6 +36,10 @@
         <el-button type="primary">下载交付文件</el-button>
       </el-form-item>
     </el-form>
+    <el-tabs v-model="activeName">
+      <el-tab-pane label="待验收" name="1"></el-tab-pane>
+      <el-tab-pane label="验收记录" name="2"></el-tab-pane>
+    </el-tabs>
     <ProTable :columns="columns" :data="tableData"></ProTable>
   </div>
 </template>
@@ -48,6 +52,7 @@ export default {
         ThoroughuId: '',
       },
       dateRange: [],
+      activeName: '1',
       columns: [
         { prop: 'Taskid', label: '任务编号' },
         { prop: 'StrTaskName', label: '任务名称' },

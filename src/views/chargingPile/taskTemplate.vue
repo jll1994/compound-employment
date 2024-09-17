@@ -38,13 +38,10 @@
         <el-button type="primary">启用</el-button>
         <el-button type="info">禁用</el-button>
         <el-button type="success">导出</el-button>
+        <el-button type="success" @click="handleAdd">新建任务</el-button>
       </el-form-item>
     </el-form>
-    <ProTable
-      :columns="columns"
-      :data="tableData"
-      style="width: 100%"
-    ></ProTable>
+    <ProTable :columns="columns" :data="tableData"></ProTable>
   </div>
 </template>
 <script>

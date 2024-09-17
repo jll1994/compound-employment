@@ -45,7 +45,6 @@ export default {
     }
   }
   &__content {
-    // display: none;
     padding: 10px 30px;
     border: 1px solid #dcdfe6;
     border-radius: 4px;

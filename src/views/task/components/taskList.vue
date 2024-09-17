@@ -103,7 +103,9 @@ export default {
   },
   methods: {
     changeDateRange() {
-      console.log('this', this.dateRange)
+      const [startTime, endTime] = this.dateRange || []
+      this.query.datestart = startTime ? dayjs(startTime).format('YYYY-MM-DD') : ''
+      this.query.dateend = endTime ? dayjs(endTime).format('YYYY-MM-DD') : ''
     },
     // 获取任务列表
     getTaskList() {

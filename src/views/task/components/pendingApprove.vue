@@ -22,6 +22,10 @@
         <el-button type="success">导出</el-button>
       </el-form-item>
     </el-form>
+    <el-tabs v-model="activeName">
+      <el-tab-pane label="待审批" name="1"></el-tab-pane>
+      <el-tab-pane label="审批记录" name="2"></el-tab-pane>
+    </el-tabs>
     <ProTable :columns="columns" :data="tableData"></ProTable>
   </div>
 </template>
@@ -29,6 +33,8 @@
 export default {
   data() {
     return {
+      query: {},
+      activeName: '1',
       columns: [
         { prop: 'StrTaskName', label: '任务名称' },
         { prop: '', label: '接单人姓名' },
