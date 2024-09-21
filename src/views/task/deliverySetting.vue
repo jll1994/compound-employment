@@ -111,24 +111,27 @@
       <el-form
         inline
         class="inlineFormItem"
-        v-for="(form, index) in formItems"
+        v-for="(_, index) in formItems"
         :key="index"
       >
         <el-form-item>
-          <el-checkbox v-model="form.checked"></el-checkbox>
+          <el-checkbox v-model="formData[index].checked"></el-checkbox>
         </el-form-item>
         <el-form-item>
           <span>{{ index + 1 }}</span>
         </el-form-item>
         <el-form-item label="显示标题：">
-          <el-input v-model="form.StrTitle"></el-input>
+          <el-input v-model="formData[index].StrTitle"></el-input>
         </el-form-item>
         <el-form-item label="行类型：">
-          <el-select v-model="form.Strfromtype">
+          <el-select v-model="formData[index].Strfromtype">
             <el-option label="单选" value="single"></el-option>
             <el-option label="多选" value="multiple"></el-option>
           </el-select>
-          <el-select v-model="form.StrIsRequired" style="margin-left: 16px">
+          <el-select
+            v-model="formData[index].StrIsRequired"
+            style="margin-left: 16px"
+          >
             <el-option label="必填" value="1"></el-option>
             <el-option label="非必填" value="0"></el-option>
           </el-select>
@@ -147,7 +150,9 @@
           <el-input class="fontSize"></el-input>
         </el-form-item>
         <el-form-item label="颜色：">
-          <el-color-picker v-model="form.StrFontcolor"></el-color-picker>
+          <el-color-picker
+            v-model="formData[index].StrFontcolor"
+          ></el-color-picker>
         </el-form-item>
       </el-form>
       <div class="form-operate flex-center">
@@ -218,6 +223,7 @@ export default {
         StrFontcolor: '',
       },
       formItems: [],
+      formData: {},
     }
   },
   methods: {
@@ -233,7 +239,9 @@ export default {
     },
     // 添加行
     handleAddRow() {
+      const len = this.formItems.length
       this.formItems.push(this.formParams)
+      this.$set(this.formData, len, {})
     },
     // 删除行
     handleDelRow() {},

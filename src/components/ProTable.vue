@@ -21,6 +21,18 @@
       v-bind="item"
     >
       <!--使用表格插槽 -->
+      <template
+        v-if="item.hasOwnProperty('columnTemplate')"
+        :slot="item.columnTemplate"
+        slot-scope="scope"
+      >
+        <slot
+          v-if="item.headerSlot"
+          :name="item.headerSlot"
+          :row="scope.row"
+          :index="index"
+        />
+      </template>
       <template slot-scope="scope">
         <div v-if="item.isSlot">
           <slot
