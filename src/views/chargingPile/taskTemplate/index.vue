@@ -35,10 +35,10 @@
       </el-form-item>
       <el-form-item>
         <el-button type="primary">搜索</el-button>
+        <el-button type="warning" @click="handleAdd">新建模板</el-button>
         <el-button type="primary">启用</el-button>
-        <el-button type="info">禁用</el-button>
+        <el-button type="info">停用</el-button>
         <el-button type="success">导出</el-button>
-        <el-button type="success" @click="handleAdd">新建任务</el-button>
       </el-form-item>
     </el-form>
     <ProTable :columns="columns" :data="tableData"></ProTable>
@@ -71,7 +71,7 @@ export default {
   },
   methods: {
     handleAdd() {
-      this.$router.push('/addOrEditTemplate')
+      this.$router.push('/cpTaskTemplateAddOrEdit')
     },
   },
 }

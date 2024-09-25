@@ -31,20 +31,25 @@ const routes = [
         component: () => import(/* webpackChunkName: "taskTemplate" */ '../views/task/template.vue')
       },
       {
-        path: '/formTemplate',
-        name: 'formTemplate',
-        component: () => import(/* webpackChunkName: "formTemplate" */ '../views/chargingPile/formTemplate.vue')
+        path: '/cpFormTemplate',
+        name: 'cpFormTemplate',
+        component: () => import(/* webpackChunkName: "formTemplate" */ '../views/chargingPile/formTemplate/index.vue')
+      },
+      {
+        path: '/cpFormTemplateAddOrEdit',
+        name: 'addOrEditCFTemplate',
+        component: () => import(/* webpackChunkName: "addOrEditTemplate" */ '../views/chargingPile/formTemplate/addOrEdit.vue')
       },
       {
         path: '/cpTaskTemplate',
         name: 'cpTaskTemplate',
-        component: () => import(/* webpackChunkName: "cpTaskTemplate" */ '../views/chargingPile/taskTemplate.vue')
+        component: () => import(/* webpackChunkName: "cpTaskTemplate" */ '../views/chargingPile/taskTemplate/index.vue')
       },
       {
-        path: '/addOrEditTemplate',
-        name: 'addOrEditTemplate',
-        component: () => import(/* webpackChunkName: "addOrEditTemplate" */ '../views/chargingPile/addOrEdit.vue')
-      },
+        path: '/cpTaskTemplateAddOrEdit',
+        name: 'addOrEditCTTemplate',
+        component: () => import(/* webpackChunkName: "addOrEditTemplate" */ '../views/chargingPile/taskTemplate/addOrEdit.vue')
+      }
     ]
   }
 ]

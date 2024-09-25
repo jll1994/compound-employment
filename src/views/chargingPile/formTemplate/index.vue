@@ -9,6 +9,9 @@
       </el-form-item>
       <el-form-item>
         <el-button type="primary">搜索</el-button>
+        <el-button type="warning" @click="handleAdd">新建模板</el-button>
+        <el-button type="primary">启用</el-button>
+        <el-button type="info">停用</el-button>
         <el-button type="success">导出</el-button>
       </el-form-item>
     </el-form>
@@ -34,6 +37,11 @@ export default {
       ],
       tableData: [],
     }
+  },
+  methods: {
+    handleAdd() {
+      this.$router.push('/cpFormTemplateAddOrEdit')
+    },
   },
 }
 </script>

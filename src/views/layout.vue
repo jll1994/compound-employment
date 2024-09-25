@@ -15,7 +15,7 @@
         </el-submenu>
         <el-submenu index="2">
           <template slot="title">充电桩任务管理</template>
-          <el-menu-item index="formTemplate">表单模板</el-menu-item>
+          <el-menu-item index="cpFormTemplate">表单模板</el-menu-item>
           <el-menu-item index="cpTaskTemplate">任务模板</el-menu-item>
         </el-submenu>
       </el-menu>

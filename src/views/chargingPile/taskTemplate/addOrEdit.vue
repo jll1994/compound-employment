@@ -7,7 +7,9 @@
       <div class="border-title">流程审批设置</div>
       <div class="pl">
         <div class="inlineItem">
-          <el-checkbox v-model="form.StrIsReorderappr">勘测需审批：</el-checkbox>
+          <el-checkbox v-model="form.StrIsReorderappr"
+            >勘测需审批：</el-checkbox
+          >
           <span class="label">审批人：</span>
           <el-radio-group>
             <el-radio>企业管理员</el-radio>
@@ -24,7 +26,9 @@
           </el-radio-group>
         </div>
         <div class="inlineItem">
-          <el-checkbox v-model="form.StrIsCheckacappr">安装需审批：</el-checkbox>
+          <el-checkbox v-model="form.StrIsCheckacappr"
+            >安装需审批：</el-checkbox
+          >
           <span class="label">审批人：</span>
           <el-radio-group>
             <el-radio>企业管理员</el-radio>
@@ -99,7 +103,9 @@
               </el-radio>
             </el-radio-group>
             <div>
-              <el-checkbox v-model="form.StrReceivedorder">曾接单人员</el-checkbox>
+              <el-checkbox v-model="form.StrReceivedorder"
+                >曾接单人员</el-checkbox
+              >
             </div>
           </el-form-item>
         </template>
@@ -144,7 +150,7 @@
     </el-form>
     <div class="operate-btn">
       <el-button type="primary">保存</el-button>
-      <el-button type="info">取消</el-button>
+      <el-button type="info" @click="handleCancel">取消</el-button>
     </div>
     <!-- 新增规则 -->
     <el-dialog title="新增规则" :visible.sync="visible" width="600px">
@@ -185,6 +191,10 @@ export default {
     // 新增规则
     addRule() {
       this.visible = true
+    },
+    // 取消
+    handleCancel() {
+      this.$router.go(-1)
     },
   },
 }

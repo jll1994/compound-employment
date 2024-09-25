@@ -301,7 +301,7 @@
       </div>
       <div class="operate-btn">
         <el-button type="primary" @click="handleStep(1)">下一步</el-button>
-        <el-button type="info">取消</el-button>
+        <el-button type="info" @click="handleCancel">取消</el-button>
       </div>
     </el-form>
     <!-- 补贴、扣除 新增/编辑 -->
@@ -554,6 +554,10 @@ export default {
         console.log('111111', this.form)
       }
       this.step += value
+    },
+    // 取消
+    handleCancel() {
+      this.$router.go(-1)
     },
   },
 }
