@@ -44,12 +44,34 @@
     <ProTable type="selection" :columns="columns" :data="tableData">
       <template slot="action" slot-scope="scope">
         <el-button type="text">编辑</el-button>
-        <el-button type="text">派单</el-button>
+        <el-button type="text" @click="handleOrder(scope.row)">派单</el-button>
         <el-button type="text">停止</el-button>
-        <el-button type="text">取消</el-button>
         <el-button type="text" @click="goToDetail(scope.row)">详情</el-button>
       </template>
     </ProTable>
+    <!-- 派单 -->
+    <el-dialog title="派单" :visible.sync="visible" width="480px">
+      <div class="dispatchDialog">
+        <div class="dispatched">
+          <span class="label">已派单12人</span>
+          <el-tag v-for="p in persons" :key="p.name" closable>
+            {{ p.name }}
+          </el-tag>
+        </div>
+        <div class="select">
+          <el-select placeholder="选择人员"></el-select>
+          <el-button type="text">添加+</el-button>
+        </div>
+        <div class="select">
+          <el-select placeholder="选择团队"></el-select>
+          <el-button type="text">添加+</el-button>
+        </div>
+      </div>
+      <div slot="footer">
+        <el-button type="primary" @click="visible = false">保 存</el-button>
+        <el-button type="info" @click="visible = false">取 消</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 <script>
@@ -89,13 +111,15 @@ export default {
         {
           prop: 'action',
           label: '操作',
-          width: 230,
+          width: 180,
           align: 'center',
           fixed: 'right',
           isSlot: true,
         },
       ],
       tableData: [],
+      visible: false,
+      persons: [{ name: '张三' }, { name: '李四' }, { name: '王五' }],
     }
   },
   mounted() {
@@ -104,7 +128,9 @@ export default {
   methods: {
     changeDateRange() {
       const [startTime, endTime] = this.dateRange || []
-      this.query.datestart = startTime ? dayjs(startTime).format('YYYY-MM-DD') : ''
+      this.query.datestart = startTime
+        ? dayjs(startTime).format('YYYY-MM-DD')
+        : ''
       this.query.dateend = endTime ? dayjs(endTime).format('YYYY-MM-DD') : ''
     },
     // 获取任务列表
@@ -117,6 +143,10 @@ export default {
     handleCreate() {
       this.$router.push('/addOrEditTask')
     },
+    // 派单
+    handleOrder() {
+      this.visible = true
+    },
     // 详情
     goToDetail() {
       this.$router.push('/taskDetail')
@@ -125,4 +155,22 @@ export default {
 }
 </script>
 
-<style scoped></style>
+<style lang="less" scoped>
+.dispatchDialog {
+  .dispatched {
+    .label {
+      color: #f2740c;
+      margin-right: 10px;
+    }
+    .el-tag + .el-tag {
+      margin-left: 10px;
+    }
+  }
+  .select {
+    margin-top: 10px;
+    .el-select {
+      margin-right: 10px;
+    }
+  }
+}
+</style>

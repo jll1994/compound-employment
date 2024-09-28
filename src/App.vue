@@ -21,7 +21,7 @@ body {
   font-weight: bold;
   padding-left: 12px;
   border-left: 4px solid orange;
-  margin-bottom: 15px;
+  margin: 15px 0;
 }
 .flex {
   display: flex;

@@ -58,6 +58,14 @@
           <span class="operator plus">+</span>
           <span>米</span>
         </div>
+        <div class="mapSelectPosition">
+          <div class="select" @click="handleSelectMap">
+            <i class="el-icon-location"></i>
+            <el-button type="text">地图选点</el-button>
+          </div>
+          <el-button type="text">删除</el-button>
+          <el-button type="text">继续添加+</el-button>
+        </div>
       </div>
     </div>
     <div class="delivery flex-align-center">
@@ -108,53 +116,69 @@
     </div>
     <div class="delivery">
       <el-checkbox v-model="baseForm.StrIsForm">填写表单</el-checkbox>
-      <el-form
-        inline
-        class="inlineFormItem"
-        v-for="(_, index) in formItems"
-        :key="index"
-      >
-        <el-form-item>
-          <el-checkbox v-model="formData[index].checked"></el-checkbox>
-        </el-form-item>
-        <el-form-item>
-          <span>{{ index + 1 }}</span>
-        </el-form-item>
-        <el-form-item label="显示标题：">
-          <el-input v-model="formData[index].StrTitle"></el-input>
-        </el-form-item>
-        <el-form-item label="行类型：">
-          <el-select v-model="formData[index].Strfromtype">
-            <el-option label="单选" value="single"></el-option>
-            <el-option label="多选" value="multiple"></el-option>
-          </el-select>
-          <el-select
-            v-model="formData[index].StrIsRequired"
-            style="margin-left: 16px"
-          >
-            <el-option label="必填" value="1"></el-option>
-            <el-option label="非必填" value="0"></el-option>
-          </el-select>
-        </el-form-item>
-        <el-form-item label="选择：">
-          <el-select></el-select>
-        </el-form-item>
-        <el-form-item label="可选项：">
-          <span>是，否</span>
-          <i class="el-icon-edit-outline icon"></i>
-        </el-form-item>
-        <el-form-item label="选择方式：">
-          <el-select></el-select>
-        </el-form-item>
-        <el-form-item label="字体大小：">
-          <el-input class="fontSize"></el-input>
-        </el-form-item>
-        <el-form-item label="颜色：">
-          <el-color-picker
-            v-model="formData[index].StrFontcolor"
-          ></el-color-picker>
-        </el-form-item>
-      </el-form>
+      <div class="formTable">
+        <div class="formTable_tr thead">
+          <div class="formTable_th selection"></div>
+          <div class="formTable_th order">序号</div>
+          <div class="formTable_th">行内容</div>
+        </div>
+        <div class="formTable_tr" v-for="(_, index) in formItems" :key="index">
+          <div class="formTable_td selection">
+            <el-checkbox v-model="formData[index].checked"></el-checkbox>
+          </div>
+          <div class="formTable_td order">{{ index + 1 }}</div>
+          <div class="formTable_td">
+            <el-form inline class="inlineFormItem">
+              <el-form-item label="显示标题：">
+                <el-input v-model="formData[index].StrTitle"></el-input>
+              </el-form-item>
+              <el-form-item label="行类型：">
+                <el-select v-model="formData[index].Strfromtype">
+                  <el-option
+                    v-for="fType in formTypes"
+                    :label="fType.label"
+                    :value="fType.value"
+                    :key="fType.value"
+                  ></el-option>
+                </el-select>
+                <el-select
+                  v-model="formData[index].StrIsRequired"
+                  style="margin-left: 16px"
+                >
+                  <el-option label="必填" value="1"></el-option>
+                  <el-option label="非必填" value="0"></el-option>
+                </el-select>
+              </el-form-item>
+              <template
+                v-if="
+                  ['single', 'multiple'].includes(formData[index].Strfromtype)
+                "
+              >
+                <el-form-item label="选择：">
+                  <el-select></el-select>
+                </el-form-item>
+                <el-form-item label="可选项：">
+                  <span>是，否</span>
+                  <i class="el-icon-edit-outline icon"></i>
+                </el-form-item>
+                <el-form-item label="选择方式：">
+                  <el-select>
+                    <el-option label="人工选择" value="1"></el-option>
+                  </el-select>
+                </el-form-item>
+              </template>
+              <el-form-item label="字体大小：">
+                <el-input class="fontSize"></el-input>
+              </el-form-item>
+              <el-form-item label="颜色：">
+                <el-color-picker
+                  v-model="formData[index].StrFontcolor"
+                ></el-color-picker>
+              </el-form-item>
+            </el-form>
+          </div>
+        </div>
+      </div>
       <div class="form-operate flex-center">
         <div class="checkAll">
           <el-checkbox>全选</el-checkbox>
@@ -185,10 +209,16 @@
       <el-button type="warning">保存为模板</el-button>
       <el-button type="info">取消</el-button>
     </div>
+    <!-- 地图选点 -->
+    <MapSelect ref="mapRef"></MapSelect>
   </div>
 </template>
 <script>
+import MapSelect from '@/components/MapSelect.vue'
 export default {
+  components: {
+    MapSelect,
+  },
   data() {
     return {
       clockType: '1', // 1=常规打卡；2=签到签退打卡
@@ -212,6 +242,11 @@ export default {
         StrAnnexCont: '',
         StrIsForm: false,
       },
+      formTypes: [
+        { label: '单行', value: 'input' },
+        { label: '单选', value: 'single' },
+        { label: '多选', value: 'multiple' },
+      ],
       formParams: {
         StrTitle: '',
         Strfromtype: '',
@@ -236,6 +271,9 @@ export default {
         this.baseForm.StrSignClock = '1'
         this.baseForm.StrRegularClock = ''
       }
+    },
+    handleSelectMap() {
+      this.$refs.mapRef.openDialog()
     },
     // 添加行
     handleAddRow() {
@@ -309,9 +347,50 @@ export default {
     margin: 0 5px;
   }
 }
-.inlineFormItem {
-  padding-left: 30px;
+.mapSelectPosition {
+  display: flex;
+  align-items: center;
+  .select {
+    margin-right: 20px;
+  }
+}
+.formTable {
+  display: table;
+  width: 100%;
   margin-top: 15px;
+  margin-left: 30px;
+  .thead {
+    background-color: #f4f4f4;
+  }
+  &_tr {
+    display: table-row;
+  }
+  &_th {
+    line-height: 20px !important;
+    color: #333;
+    font-weight: bold;
+  }
+  &_th,
+  &_td {
+    display: table-cell;
+    padding: 10px;
+    box-sizing: border-box;
+    &.selection {
+      padding: 0;
+      width: 24px;
+      line-height: 38px;
+      text-align: center;
+    }
+    &.order {
+      width: 55px;
+      line-height: 38px;
+      text-align: center;
+    }
+  }
+}
+.inlineFormItem {
+  height: 38px;
+  line-height: 38px;
   .el-form-item {
     margin-bottom: 0;
   }

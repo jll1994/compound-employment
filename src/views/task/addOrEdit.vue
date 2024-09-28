@@ -89,7 +89,7 @@
                 placeholder="请输入详细地址"
                 v-model="form.StrAddr"
               ></el-input>
-              <i class="el-icon-location"></i>
+              <i class="el-icon-location" @click="handleSelectMap"></i>
             </div>
           </el-form-item>
         </el-col>
@@ -293,6 +293,10 @@
             </el-radio>
           </el-radio-group>
         </div>
+        <div class="inlineItem freeApprove">
+          <span class="label">免审批设置</span>
+          <el-input placeholder="请输入单人单次上限"></el-input>
+        </div>
       </div>
       <div class="border-title">通知设置</div>
       <div class="pl">
@@ -304,6 +308,8 @@
         <el-button type="info" @click="handleCancel">取消</el-button>
       </div>
     </el-form>
+    <!-- 地图选点 -->
+    <MapSelect ref="mapRef"></MapSelect>
     <!-- 补贴、扣除 新增/编辑 -->
     <el-dialog
       :title="`新增${typeName}`"
@@ -324,40 +330,28 @@
             <el-input
               placeholder="输入其他补贴名称"
               style="width: 240px"
+              v-model="taskCond.StrtypeName"
             ></el-input>
           </div>
         </el-form-item>
         <el-form-item label="扣除项目" v-if="type === 'deduct'">
-          <el-input placeholder="请输入"></el-input>
+          <el-input
+            placeholder="请输入"
+            v-model="taskCond.StrtypeName"
+          ></el-input>
         </el-form-item>
-        <el-form-item label="完成任务满">
+        <el-form-item :label="['1', '2'].includes(form.StrRemunetype) ? '完成任务满' : '结算工时满'">
           <div class="inlineItem">
-            <el-input></el-input>
-            <span class="label">件</span>
+            <el-input v-model="taskCond.DesCondition"></el-input>
+            <span class="label">{{ getUnit() }}</span>
           </div>
         </el-form-item>
         <el-form-item :label="`${typeName}金额`">
           <div class="inlineItem">
-            <el-input></el-input>
+            <el-input v-model="taskCond.Desfound"></el-input>
             <el-radio-group>
               <el-radio label="1">元</el-radio>
-              <el-radio label="2">元/件</el-radio>
-            </el-radio-group>
-          </div>
-        </el-form-item>
-        <el-form-item label="结算工时满">
-          <div class="inlineItem">
-            <el-input></el-input>
-            <span class="label">小时</span>
-          </div>
-        </el-form-item>
-        <el-form-item label="补贴金额">
-          <div class="inlineItem">
-            <el-input></el-input>
-            <el-radio-group>
-              <el-radio label="1">元/天</el-radio>
-              <el-radio label="2">元/次</el-radio>
-              <el-radio label="3">元/小时</el-radio>
+              <el-radio label="2">元/{{ getUnit() }}</el-radio>
             </el-radio-group>
           </div>
         </el-form-item>
@@ -382,8 +376,10 @@ import dayjs from 'dayjs'
 import CollapsePanel from '@/components/CollapsePanel.vue'
 import OrderSetting from './orderSetting'
 import DeliverySetting from './deliverySetting'
+import MapSelect from '@/components/MapSelect.vue'
 export default {
   components: {
+    MapSelect,
     OrderSetting,
     DeliverySetting,
   },
@@ -447,6 +443,13 @@ export default {
         { label: '签退二维码', prop: 'StrlogoutQrcode' },
       ],
       visible: false, // 补贴、扣除
+      taskCond: {
+        StrCondtype: '',
+        StrtypeName: '',
+        DesCondition: '',
+        Desfound: '',
+        StrRemunetype: '',
+      },
       type: 'subsidy', // subsidy=补贴；deduct=扣除
       columns: [
         { prop: 'StrtypeName', label: '类型', width: 200 },
@@ -517,6 +520,9 @@ export default {
     handleRegionChange(value) {
       console.log('111111', value)
     },
+    handleSelectMap() {
+      this.$refs.mapRef.openDialog()
+    },
     changeDateRange() {
       const [startTime, endTime] = this.dateRange || []
       this.form.DteffecstartDate = startTime
@@ -546,6 +552,7 @@ export default {
     handleAdd(type) {
       this.visible = true
       this.type = type
+      console.log('form.StrRemunetype', this.form.StrRemunetype)
     },
     // 下一步
     handleStep(value) {
@@ -634,6 +641,12 @@ export default {
 .pl {
   padding-left: 64px;
   box-sizing: border-box;
+}
+.freeApprove {
+  padding-left: 24px;
+  .el-input {
+    width: 300px;
+  }
 }
 .operate-btn {
   text-align: center;

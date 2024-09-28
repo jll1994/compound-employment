@@ -40,7 +40,14 @@
         <el-button type="success">导出</el-button>
       </el-form-item>
     </el-form>
-    <ProTable :columns="columns" :data="tableData"></ProTable>
+    <ProTable :columns="columns" :data="tableData">
+      <template slot="action" slot-scope="scope">
+        <el-button type="text">停用</el-button>
+        <el-button type="text">编辑</el-button>
+        <el-button type="text">删除</el-button>
+        <el-button type="text">复制</el-button>
+      </template>
+    </ProTable>
   </div>
 </template>
 <script>
@@ -63,6 +70,7 @@ export default {
         { prop: '', label: '接单审批' },
         { prop: '', label: '创建时间' },
         { prop: '', label: '更新时间' },
+        { prop: 'action', label: '操作', isSlot: true },
       ],
       tableData: [],
     }

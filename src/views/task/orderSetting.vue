@@ -48,7 +48,9 @@
               <el-radio>全员</el-radio>
               <el-radio>
                 <span class="label">设置范围：</span>
-                <el-select></el-select>
+                <el-select>
+                  <el-option label="1" value="1"></el-option>
+                </el-select>
                 <el-button type="success" size="mini">增加</el-button>
               </el-radio>
             </el-radio-group>
@@ -77,10 +79,14 @@
                 </div>
               </el-form-item>
               <el-form-item label="学历要求：">
-                <el-select></el-select>
+                <el-select>
+                  <el-option label="1" value="1"></el-option>
+                </el-select>
               </el-form-item>
               <el-form-item label="工作要求：">
-                <el-select></el-select>
+                <el-select>
+                  <el-option label="1" value="1"></el-option>
+                </el-select>
               </el-form-item>
               <el-form-item label="其他要求：">
                 <el-input></el-input>
@@ -98,7 +104,9 @@
           <el-radio-group class="vertical-radioGroup">
             <el-radio>
               <span class="label">人工指定</span>
-              <el-select></el-select>
+              <el-select>
+                <el-option label="1" value="1"></el-option>
+              </el-select>
             </el-radio>
             <el-radio>
               <div>
@@ -109,7 +117,9 @@
           <div class="rules">
             <div class="rule-item">
               <span>规则1</span>
-              <el-select></el-select>
+              <el-select>
+                <el-option label="1" value="1"></el-option>
+              </el-select>
               <i class="el-icon-delete-solid icon"></i>
             </div>
             <el-button type="text" @click="addRule">新增规则+</el-button>
@@ -130,6 +140,23 @@
     </div>
     <!-- 新增规则 -->
     <el-dialog title="新增规则" :visible.sync="visible" width="600px">
+      <div class="ruleDialog">
+        <div class="title">接单人须符合以下所有条件：</div>
+        <div class="condition-item">
+          <span class="label">接单人</span>
+          <el-select placeholder="接单人所在城市"></el-select>
+          <el-select placeholder="选择条件"></el-select>
+          <span class="content">宁波</span>
+        </div>
+        <div class="condition-item">
+          <span class="label">接单人</span>
+          <el-select placeholder="选择人员属性"></el-select>
+          <el-select placeholder="选择条件"></el-select>
+          <span class="label">任务</span>
+          <el-select placeholder="选择任务属性"></el-select>
+          <el-button type="text">添加行+</el-button>
+        </div>
+      </div>
       <div slot="footer">
         <el-button type="primary" @click="visible = false">保 存</el-button>
         <el-button type="info" @click="visible = false">取 消</el-button>
@@ -226,6 +253,22 @@ export default {
   .icon {
     font-size: 18px;
     margin-left: 16px;
+  }
+}
+.ruleDialog {
+  .title {
+    margin-bottom: 10px;
+  }
+  .condition-item {
+    margin-bottom: 10px;
+    .label,
+    .el-select,
+    .content {
+      margin-right: 10px;
+    }
+    .el-select {
+      width: 120px;
+    }
   }
 }
 .operate-btn {
